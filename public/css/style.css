@@ -1,0 +1,580 @@
+/* Umumiy sozlamalar: Saytning umumiy ko'rinishi, Android Activity foniga o'xshaydi */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    /* Play Market shrifti */
+    margin: 0;
+    /* Chetlardagi bo'shliqni olib tashlash */
+    padding: 0;
+    background: linear-gradient(135deg, #f0f2f5, #e0eafc);
+    /* Nozik gradient fon */
+    color: #333;
+    /* To'q matn rangi */
+    overflow-x: hidden;
+    /* Gorizontal scrollni oldini olish */
+}
+
+/* Sarlavha: Toolbar yoki AppBar kabi */
+header {
+    background: linear-gradient(90deg, #1a73e8, #00c4b4);
+    /* Play Market ko'k-yashil gradient */
+    color: white;
+    /* Oq matn */
+    text-align: center;
+    /* Matn markazda */
+    padding: 30px 20px;
+    /* Kattaroq ichki bo'shliq */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Nozik soya */
+    position: sticky;
+    /* Yuqorida qolishi uchun */
+    top: 0;
+    z-index: 1000;
+    /* Boshqa elementlar ustida */
+}
+
+/* Sarlavha matni */
+header h1 {
+    margin: 0;
+    /* Bo'shliqni olib tashlash */
+    font-size: 32px;
+    /* Katta harflar */
+    font-weight: 700;
+    /* Qalin shrift */
+    text-transform: uppercase;
+    /* Katta harflar effekti */
+    letter-spacing: 1px;
+    /* Harflar orasidagi bo'shliq */
+    animation: fadeIn 1s ease-in;
+    /* Yuklanish animatsiyasi */
+}
+
+/* Animatsiya sarlavha uchun */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Qidiruv konteyneri: ConstraintLayout kabi, ikonka va inputni birlashtiradi */
+.search-container {
+    position: relative;
+    /* Ikonka joylashuvi uchun */
+    width: 90%;
+    /* Ekran kengligining 90% */
+    max-width: 700px;
+    /* Kattaroq ekranlar uchun */
+    margin: 20px auto;
+    /* Markazda joylashish */
+    display: flex;
+    /* Ikonka va inputni moslashtirish */
+    align-items: center;
+    /* Vertikal markaz */
+}
+
+/* Qidiruv ikonkasi: drawableStart kabi */
+.search-icon {
+    position: absolute;
+    /* Input ichida joylashadi */
+    left: 20px;
+    /* Chapdan bo'shliq */
+    top: 50%;
+    /* Vertikal markaz */
+    transform: translateY(-50%);
+    /* To'g'ri joylashish */
+    color: #666;
+    /* Kulrang ikonka */
+    font-size: 20px;
+    /* Ikonka o'lchami */
+    transition: color 0.3s ease;
+    /* Rang o'zgarishi animatsiyasi */
+}
+
+/* Qidiruv paneli: MaterialTextInputLayout kabi */
+.search-bar {
+    width: 100%;
+    /* Konteyner kengligini to'ldirish */
+    padding: 14px 20px 14px 50px;
+    /* Ikonka uchun chap bo'shliq */
+    border-radius: 50px;
+    /* Yumaloq burchaklar */
+    border: none;
+    /* Ramka yo'q */
+    background: white;
+    /* Oq fon */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Nozik soya */
+    font-size: 16px;
+    /* O'rtacha harf o'lchami */
+    color: #333;
+    /* Matn rangi */
+    transition: all 0.3s ease;
+    /* Silliq animatsiyalar */
+}
+
+/* Fokusdagi effekt: EditText fokuslangandagi kabi */
+.search-bar:focus {
+    outline: none;
+    /* Standart ramkani olib tashlash */
+    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.3);
+    /* Ko'k soya */
+    transform: scale(1.02);
+    /* Bir oz kattalashish */
+}
+
+/* Fokusda ikonka rangi o'zgaradi */
+.search-bar:focus+.search-icon,
+.search-bar:not(:placeholder-shown)+.search-icon {
+    color: #1a73e8;
+    /* Ko'k rang */
+}
+
+/* Placeholder matni */
+.search-bar::placeholder {
+    color: #999;
+    /* Kulrang matn */
+    font-style: italic;
+    /* Egri shrift */
+}
+
+/* Ilova kartalari joylashuvi: RecyclerView GridLayoutManager kabi */
+.app-grid {
+    display: grid;
+    /* Panjara shaklida joylashtirish */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* Har bir karta 280px */
+    gap: 25px;
+    /* Kartalar orasidagi bo'shliq */
+    padding: 30px;
+    /* Chetlardagi bo'shliq */
+    max-width: 1400px;
+    /* Kattaroq ekranlar uchun */
+    margin: 0 auto;
+    /* Markazda joylashish */
+}
+
+/* Ilova kartasi: MaterialCardView kabi */
+.app-card {
+    background: white;
+    /* Oq fon */
+    border-radius: 16px;
+    /* Yumaloq burchaklar */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    /* Chuqurroq soya */
+    padding: 20px;
+    /* Ichki bo'shliq */
+    text-align: center;
+    /* Matn markazda */
+    position: relative;
+    /* Gradient ramka uchun */
+    overflow: hidden;
+    /* Chetlarni tozalash */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Silliq animatsiyalar */
+}
+
+/* Gradient ramka effekti */
+.app-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #1a73e8, #00c4b4);
+    /* Ko'k-yashil gradient */
+    z-index: -1;
+    /* Kartadan orqada */
+    border-radius: 18px;
+    /* Yumaloq burchaklar */
+    opacity: 0;
+    /* Dastlab ko'rinmaydi */
+    transition: opacity 0.3s ease;
+    /* Silliq paydo bo'lish */
+}
+
+/* Hover effekti: Kartani ko'tarish va gradient ramka */
+.app-card:hover {
+    transform: translateY(-8px);
+    /* Yuqoriga ko'tarilish */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    /* Kuchli soya */
+}
+
+/* Hover'da gradient ramka ko'rinadi */
+.app-card:hover::before {
+    opacity: 1;
+    /* Gradient ramka paydo bo'ladi */
+}
+
+/* Ikonka: ImageView kabi */
+.app-icon {
+    width: 90px;
+    /* 90x90 o'lcham */
+    height: 90px;
+    border-radius: 20px;
+    /* Yumaloq burchaklar */
+    margin-bottom: 15px;
+    /* Pastga bo'shliq */
+    border: 2px solid #eee;
+    /* Nozik ramka */
+    object-fit: cover;
+    /* Rasmni to'g'ri joylashtirish */
+    transition: transform 0.3s ease;
+    /* Silliq animatsiya */
+}
+
+/* Ikonka hover effekti */
+.app-card:hover .app-icon {
+    transform: scale(1.1);
+    /* Bir oz kattalashish */
+}
+
+/* Ilova nomi: TextView kabi */
+.app-card h2 {
+    font-size: 20px;
+    /* Kattaroq harflar */
+    margin: 0 0 12px;
+    /* Pastga bo'shliq */
+    color: #222;
+    /* To'qroq matn */
+    font-weight: 600;
+    /* O'rtacha qalin shrift */
+    text-overflow: ellipsis;
+    /* Uzun nomlar uchun qisqartirish */
+    overflow: hidden;
+    white-space: nowrap;
+    /* Bir qatorga joylashtirish */
+}
+
+/* Skrinshotlar konteyneri: ViewPager2 kabi */
+.screenshots {
+    position: relative;
+    /* Tugmalar joylashuvi uchun */
+    display: flex;
+    /* Gorizontal joylashuv */
+    overflow-x: auto;
+    /* Surish mumkin */
+    gap: 12px;
+    /* Rasmlar orasidagi bo'shliq */
+    margin: 15px 0;
+    /* Yuqori va pastki bo'shliq */
+    padding: 10px 40px;
+    /* Tugmalar uchun yon bo'shliq */
+    scroll-snap-type: x mandatory;
+    /* Surishda to'xtash */
+    scrollbar-width: none;
+    /* Scrollbarnni yashirish */
+    scroll-behavior: smooth;
+    /* Silliq surish */
+}
+
+/* Scrollbar yashirish (Chrome, Safari) */
+.screenshots::-webkit-scrollbar {
+    display: none;
+}
+
+/* Har bir skrinshot */
+.screenshot {
+    width: 160px;
+    /* 160x280 o'lcham */
+    height: 280px;
+    border-radius: 12px;
+    /* Yumaloq burchaklar */
+    object-fit: cover;
+    /* Rasmni to'g'ri joylashtirish */
+    scroll-snap-align: center;
+    /* Markazda to'xtash */
+    border: 1px solid #eee;
+    /* Nozik ramka */
+    transition: transform 0.3s ease;
+    /* Silliq animatsiya */
+    flex: 0 0 auto;
+    /* O'lchamni saqlash */
+    cursor: pointer;
+    /* Bosilishi mumkinligini ko'rsatish */
+}
+
+/* Skrinshot hover effekti */
+.screenshot:hover {
+    transform: scale(1.05);
+    /* Bir oz kattalashish */
+}
+
+/* Slayder tugmalari: ViewPager navigatsiya tugmalari kabi */
+.screenshot-nav {
+    position: absolute;
+    /* Konteyner ichida joylashadi */
+    top: 50%;
+    /* Vertikal markaz */
+    transform: translateY(-50%);
+    /* To'g'ri joylashish */
+    background: rgba(0, 0, 0, 0.5);
+    /* Yarim shaffof fon */
+    color: white;
+    /* Oq ikonka */
+    border: none;
+    /* Ramka yo'q */
+    border-radius: 50%;
+    /* Yumaloq shakl */
+    width: 36px;
+    /* Tugma o'lchami */
+    height: 36px;
+    display: flex;
+    /* Ikonka markazda */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* Sichqoncha ko'rsatkichi */
+    transition: background 0.3s ease;
+    /* Silliq o'zgarish */
+    z-index: 10;
+    /* Rasmlar ustida */
+}
+
+/* Chap tugma */
+.screenshot-nav.prev {
+    left: 10px;
+    /* Chapdan bo'shliq */
+}
+
+/* O'ng tugma */
+.screenshot-nav.next {
+    right: 10px;
+    /* O'ngdan bo'shliq */
+}
+
+/* Tugma hover effekti */
+.screenshot-nav:hover {
+    background: rgba(26, 115, 232, 0.7);
+    /* Ko'k fon */
+}
+
+/* Tugma ichidagi ikonka */
+.screenshot-nav i {
+    font-size: 18px;
+    /* Ikonka o'lchami */
+}
+
+/* Yuklash tugmasi: MaterialButton kabi */
+.download-btn {
+    display: inline-flex;
+    /* Ikonka va matnni moslashtirish */
+    align-items: center;
+    /* Vertikal markaz */
+    background: linear-gradient(90deg, #34c759, #2ecc71);
+    /* Yashil gradient */
+    color: white;
+    /* Oq matn */
+    padding: 12px 24px;
+    /* Ichki bo'shliq */
+    text-decoration: none;
+    /* Chiziqni olib tashlash */
+    border-radius: 30px;
+    /* Yumaloq burchaklar */
+    font-size: 16px;
+    /* O'rtacha harflar */
+    font-weight: 500;
+    /* O'rtacha qalin shrift */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    /* Nozik soya */
+    transition: all 0.3s ease;
+    /* Silliq animatsiyalar */
+}
+
+/* Tugma ichidagi ikonka */
+.download-btn i {
+    margin-right: 8px;
+    /* Ikonka va matn orasidagi bo'shliq */
+    font-size: 18px;
+    /* Ikonka o'lchami */
+}
+
+/* Tugma hover effekti */
+.download-btn:hover {
+    background: linear-gradient(90deg, #2ea44f, #27ae60);
+    /* To'qroq yashil */
+    transform: translateY(-2px);
+    /* Bir oz ko'tarilish */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    /* Kuchliroq soya */
+}
+
+/* Tugma bosilganda effekt */
+.download-btn:active {
+    transform: scale(0.98);
+    /* Bir oz kichrayish */
+}
+
+/* Modal oyna: To'liq ekran skrinshot ko'rinishi */
+.modal {
+    position: fixed;
+    /* Ekranda sobit */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    /* Xira qora fon */
+    display: flex;
+    /* Rasmni markazlashtirish */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    /* Hamma elementlar ustida */
+    opacity: 0;
+    /* Dastlab ko'rinmaydi */
+    transition: opacity 0.3s ease;
+    /* Silliq paydo bo'lish */
+}
+
+/* Modal ochilganda */
+.modal.show {
+    opacity: 1;
+    /* To'liq ko'rinadi */
+}
+
+/* Modal ichidagi rasm */
+.modal img {
+    max-width: 90%;
+    /* Ekran kengligining 90% */
+    max-height: 90%;
+    /* Ekran balandligining 90% */
+    border-radius: 12px;
+    /* Yumaloq burchaklar */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Nozik soya */
+    object-fit: contain;
+    /* Rasmni to'g'ri o'lchamda ko'rsatish */
+    cursor: pointer;
+    /* Yopish uchun bosilishi mumkin */
+}
+
+/* Moslashuvchan dizayn: Telefonlar va planshetlar uchun */
+@media (max-width: 900px) {
+    header h1 {
+        font-size: 28px;
+        /* Kichikroq sarlavha */
+    }
+
+    .search-container {
+        max-width: 500px;
+        /* Kichikroq qidiruv paneli */
+    }
+
+    .app-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        /* Kichikroq kartalar */
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .app-card {
+        padding: 15px;
+        /* Kichikroq ichki bo'shliq */
+    }
+
+    .screenshots {
+        padding: 10px 30px;
+        /* Kichikroq yon bo'shliq */
+    }
+
+    .screenshot {
+        width: 140px;
+        /* Kichikroq o'lcham */
+        height: 240px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 20px 15px;
+        /* Kichikroq bo'shliq */
+    }
+
+    header h1 {
+        font-size: 24px;
+        /* Yanada kichik sarlavha */
+    }
+
+    .search-container {
+        width: 95%;
+        /* Telefonlarda kengroq */
+    }
+
+    .search-bar {
+        padding: 12px 15px 12px 40px;
+        /* Kichikroq bo'shliq */
+        font-size: 14px;
+        /* Kichikroq harflar */
+    }
+
+    .search-icon {
+        left: 12px;
+        /* Telefonlarda ikonka joylashuvi */
+        font-size: 18px;
+    }
+
+    .app-grid {
+        grid-template-columns: 1fr;
+        /* Faqat bitta karta */
+        padding: 15px;
+        /* Kichikroq bo'shliq */
+    }
+
+    .app-icon {
+        width: 70px;
+        /* Kichikroq ikonka */
+        height: 70px;
+    }
+
+    .app-card h2 {
+        font-size: 18px;
+        /* Kichikroq nom */
+    }
+
+    .screenshots {
+        padding: 10px 20px;
+        /* Telefonlarda kichikroq bo'shliq */
+    }
+
+    .screenshot {
+        width: 120px;
+        /* Kichikroq skrinshot */
+        height: 200px;
+    }
+
+    .screenshot-nav {
+        width: 32px;
+        /* Kichikroq tugma */
+        height: 32px;
+    }
+
+    .screenshot-nav i {
+        font-size: 16px;
+        /* Kichikroq ikonka */
+    }
+
+    .download-btn {
+        padding: 10px 20px;
+        /* Kichikroq tugma */
+        font-size: 14px;
+    }
+
+    .download-btn i {
+        font-size: 16px;
+        /* Kichikroq ikonka */
+    }
+
+    .modal img {
+        max-width: 95%;
+        /* Telefonlarda kengroq */
+        max-height: 85%;
+        /* Bir oz kichikroq */
+    }
+}
